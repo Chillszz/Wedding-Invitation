@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jomar & [Bride] - Wedding Invitation</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Envelope Opening Intro -->
+  <div id="envelope-overlay" class="envelope-overlay">
+    <div class="envelope-container">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-letter">
+            <p class="envelope-names">J & B</p>
+            <p class="envelope-tagline">You're Invited</p>
+          </div>
+        </div>
+      </div>
+      <button class="open-invite-btn" id="openInviteBtn">Open Invitation</button>
+    </div>
+  </div>
+
+  <!-- Floating Navigation -->
+  <nav id="floatingNav" class="floating-nav hidden">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span class="nav-hamburger"></span>
+    </button>
+    <ul class="nav-list" id="navList">
+      <li><a href="#hero" data-section="hero">Home</a></li>
+      <li><a href="#message" data-section="message">Our Words</a></li>
+      <li><a href="#dresscode" data-section="dresscode">Dress Code</a></li>
+      <li><a href="#venue" data-section="venue">Venue</a></li>
+      <li><a href="#timeline" data-section="timeline">Timeline</a></li>
+      <li><a href="#gallery" data-section="gallery">Gallery</a></li>
+      <li><a href="#rsvp" data-section="rsvp">RSVP</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="mainContent" class="main-content hidden">
+
+    <!-- Section 1: Hero / Couple Introduction -->
+    <section id="hero" class="section hero-section">
+      <div class="hero-bg-overlay"></div>
+      <div class="floating-petals" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-subtitle fade-up">Together with their families</p>
+        <h1 class="hero-names fade-up delay-1">
+          <span class="name groom-name">Jomar</span>
+          <span class="ampersand">&</span>
+          <span class="name bride-name">[Bride]</span>
+        </h1>
+        <div class="hero-divider fade-up delay-2">
+          <span class="divider-line"></span>
+          <span class="divider-icon">&#9829;</span>
+          <span class="divider-line"></span>
+        </div>
+        <p class="hero-date fade-up delay-3">May 24, 2026 &bull; Saturday</p>
+        <p class="hero-location fade-up delay-3">Manila, Philippines</p>
+        <div class="hero-couple-photo fade-up delay-4">
+          <div class="couple-frame">
+            <div class="placeholder-photo">
+              <span class="placeholder-icon">&#128141;</span>
+              <span class="placeholder-text">Couple Photo</span>
+            </div>
+          </div>
+        </div>
+        <a href="#message" class="scroll-down-btn fade-up delay-5">
+          <span>Scroll Down</span>
+          <div class="scroll-arrow"></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 2: Message from the Couple -->
+    <section id="message" class="section message-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <p class="section-label">A Note From Us</p>
+          <h2 class="section-title">Dear Family & Friends</h2>
+        </div>
+        <div class="message-card reveal delay-1">
+          <div class="message-quote-mark">&ldquo;</div>
+          <p class="message-text">
+            We are so blessed and excited to share this special chapter of our lives with you.
+            Your presence, love, and support mean the world to us. We can't wait to celebrate
+            this beautiful day surrounded by the people who matter most.
+          </p>
+          <p class="message-text">
+            Thank you for being part of our journey. We look forward to making
+            unforgettable memories together!
+          </p>
+          <div class="message-signature">
+            <p>With all our love,</p>
+            <p class="signature-names">Jomar & [Bride]</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Dress Code -->
+    <section id="dresscode" class="section dresscode-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <p class="section-label">What to Wear</p>
+          <h2 class="section-title">Dress Code</h2>
+        </div>
+        <div class="dresscode-content">
+          <div class="dresscode-theme reveal delay-1">
+            <h3 class="dresscode-theme-title">Semi-Formal / Garden Elegance</h3>
+            <p class="dresscode-note">We kindly ask our guests to follow the color palette below</p>
+          </div>
+          <div class="color-palette reveal delay-2">
+            <div class="color-swatch" style="--swatch-color: #D4A574;">
+              <div class="swatch-circle"></div>
+              <span class="swatch-name">Champagne</span>
+            </div>
+            <div class="color-swatch" style="--swatch-color: #8B7355;">
+              <div class="swatch-circle"></div>
+              <span class="swatch-name">Mocha</span>
+            </div>
+            <div class="color-swatch" style="--swatch-color: #C9B99A;">
+              <div class="swatch-circle"></div>
+              <span class="swatch-name">Sand</span>
+            </div>
+            <div class="color-swatch" style="--swatch-color: #F5E6D3;">
+              <div class="swatch-circle"></div>
+              <span class="swatch-name">Cream</span>
+            </div>
+            <div class="color-swatch" style="--swatch-color: #2F4F4F;">
+              <div class="swatch-circle"></div>
+              <span class="swatch-name">Forest</span>
+            </div>
+            <div class="color-swatch" style="--swatch-color: #4A6741;">
+              <div class="swatch-circle"></div>
+              <span class="swatch-name">Sage</span>
+            </div>
+          </div>
+          <div class="dresscode-details reveal delay-3">
+            <div class="dresscode-card">
+              <div class="dresscode-card-icon">&#128087;</div>
+              <h4>For Him</h4>
+              <p>Long sleeves or barong, slacks, and dress shoes. Tie optional.</p>
+            </div>
+            <div class="dresscode-card">
+              <div class="dresscode-card-icon">&#128090;</div>
+              <h4>For Her</h4>
+              <p>Cocktail dress, long dress, or elegant filipiniana within the color palette.</p>
+            </div>
+          </div>
+          <p class="dresscode-reminder reveal delay-4">&#9888; Please avoid wearing white, black, or red. Thank you!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Venue / Location -->
+    <section id="venue" class="section venue-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <p class="section-label">Where to Go</p>
+          <h2 class="section-title">Wedding Venue</h2>
+        </div>
+        <div class="venue-content">
+          <div class="venue-card ceremony-card reveal delay-1">
+            <div class="venue-card-icon">&#9962;</div>
+            <h3>Ceremony</h3>
+            <p class="venue-name">[Church / Venue Name]</p>
+            <p class="venue-address">[Full Address Placeholder]</p>
+            <p class="venue-time">2:00 PM - 3:30 PM</p>
+            <div class="venue-map-placeholder">
+              <div class="map-placeholder-inner">
+                <span class="map-icon">&#128205;</span>
+                <span>Map will be here</span>
+              </div>
+            </div>
+            <a href="#" class="venue-directions-btn">Get Directions</a>
+          </div>
+          <div class="venue-card reception-card reveal delay-2">
+            <div class="venue-card-icon">&#127864;</div>
+            <h3>Reception</h3>
+            <p class="venue-name">[Reception Venue Name]</p>
+            <p class="venue-address">[Full Address Placeholder]</p>
+            <p class="venue-time">5:00 PM - 10:00 PM</p>
+            <div class="venue-map-placeholder">
+              <div class="map-placeholder-inner">
+                <span class="map-icon">&#128205;</span>
+                <span>Map will be here</span>
+              </div>
+            </div>
+            <a href="#" class="venue-directions-btn">Get Directions</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Wedding Day Timeline -->
+    <section id="timeline" class="section timeline-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <p class="section-label">The Celebration</p>
+          <h2 class="section-title">Wedding Day Timeline</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-line"></div>
+
+          <div class="timeline-item reveal" data-side="left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">1:30 PM</span>
+              <h4>Guest Arrival</h4>
+              <p>Guests are seated at the ceremony venue. Light refreshments available.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-side="right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">2:00 PM</span>
+              <h4>Wedding Ceremony</h4>
+              <p>The exchange of vows and rings. Witness the union of two hearts.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-side="left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">3:30 PM</span>
+              <h4>Photo Session</h4>
+              <p>Family and group photos with the newlyweds. Capture the memories!</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-side="right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">5:00 PM</span>
+              <h4>Reception Begins</h4>
+              <p>Welcome cocktails and appetizers. Find your seats and settle in.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-side="left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">6:00 PM</span>
+              <h4>Dinner & Toasts</h4>
+              <p>Enjoy a wonderful dinner with speeches and toasts from loved ones.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-side="right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">7:00 PM</span>
+              <h4>First Dance & Cake Cutting</h4>
+              <p>The couple's first dance followed by the cake cutting ceremony.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-side="left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">7:30 PM</span>
+              <h4>Party & Dancing</h4>
+              <p>Hit the dance floor! Music, fun, and celebration all night.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-side="right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-time">9:30 PM</span>
+              <h4>Send-Off</h4>
+              <p>Sparkler send-off for the newlyweds. Thank you for celebrating with us!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Photo Gallery -->
+    <section id="gallery" class="section gallery-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <p class="section-label">Our Moments</p>
+          <h2 class="section-title">Gallery</h2>
+        </div>
+        <div class="gallery-grid reveal delay-1">
+          <div class="gallery-item gallery-item--wide">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 1</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 2</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 3</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 4</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 5</span>
+            </div>
+          </div>
+          <div class="gallery-item gallery-item--tall">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 6</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 7</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <span class="gallery-placeholder-icon">&#128247;</span>
+              <span>Photo 8</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: RSVP / Quick Overview -->
+    <section id="rsvp" class="section rsvp-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <p class="section-label">Be There With Us</p>
+          <h2 class="section-title">RSVP</h2>
+        </div>
+        <div class="rsvp-content reveal delay-1">
+          <div class="countdown" id="countdown">
+            <div class="countdown-item">
+              <span class="countdown-number" id="countDays">--</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="countHours">--</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="countMinutes">--</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="countSeconds">--</span>
+              <span class="countdown-label">Seconds</span>
+            </div>
+          </div>
+          <p class="rsvp-note">Kindly confirm your attendance on or before <strong>April 30, 2026</strong></p>
+          <a href="#" class="rsvp-btn">Confirm Attendance</a>
+        </div>
+
+        <!-- Quick Jump Navigation (all sections) -->
+        <div class="quick-nav reveal delay-2">
+          <h3>Quick Navigation</h3>
+          <div class="quick-nav-grid">
+            <a href="#hero" class="quick-nav-item">
+              <span class="quick-nav-icon">&#127968;</span>
+              <span>Home</span>
+            </a>
+            <a href="#message" class="quick-nav-item">
+              <span class="quick-nav-icon">&#128140;</span>
+              <span>Our Words</span>
+            </a>
+            <a href="#dresscode" class="quick-nav-item">
+              <span class="quick-nav-icon">&#128087;</span>
+              <span>Dress Code</span>
+            </a>
+            <a href="#venue" class="quick-nav-item">
+              <span class="quick-nav-icon">&#128205;</span>
+              <span>Venue</span>
+            </a>
+            <a href="#timeline" class="quick-nav-item">
+              <span class="quick-nav-icon">&#128338;</span>
+              <span>Timeline</span>
+            </a>
+            <a href="#gallery" class="quick-nav-item">
+              <span class="quick-nav-icon">&#128247;</span>
+              <span>Gallery</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-hearts" aria-hidden="true">&#9829; &#9829; &#9829;</div>
+        <p class="footer-names">Jomar & [Bride]</p>
+        <p class="footer-date">May 24, 2026</p>
+        <p class="footer-credit">Made with love</p>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- Lightbox for gallery -->
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <div class="lightbox-content">
+      <div class="lightbox-placeholder">
+        <span>Full Size Photo</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
