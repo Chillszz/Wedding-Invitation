@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jomar & [Bride] - Wedding Invitation</title>
+  <title>Jomar & Alyssa Dannah - Wedding Invitation</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
   <!-- Envelope Opening Intro -->
@@ -17,8 +17,11 @@
         <div class="envelope-flap"></div>
         <div class="envelope-body">
           <div class="envelope-letter">
-            <p class="envelope-names">J & B</p>
-            <p class="envelope-tagline">You're Invited</p>
+            <div class="monogram">
+              <span class="monogram-j">J</span>
+              <span class="monogram-a">A</span>
+            </div>
+            <p class="envelope-date">05 . 27 . 2026</p>
           </div>
         </div>
       </div>
@@ -34,7 +37,9 @@
     <ul class="nav-list" id="navList">
       <li><a href="#hero" data-section="hero">Home</a></li>
       <li><a href="#message" data-section="message">Our Words</a></li>
+      <li><a href="#entourage" data-section="entourage">Entourage</a></li>
       <li><a href="#dresscode" data-section="dresscode">Dress Code</a></li>
+      <li><a href="#details" data-section="details">Finer Details</a></li>
       <li><a href="#venue" data-section="venue">Venue</a></li>
       <li><a href="#timeline" data-section="timeline">Timeline</a></li>
       <li><a href="#gallery" data-section="gallery">Gallery</a></li>
@@ -50,19 +55,20 @@
       <div class="hero-bg-overlay"></div>
       <div class="floating-petals" aria-hidden="true"></div>
       <div class="hero-content">
-        <p class="hero-subtitle fade-up">Together with their families</p>
-        <h1 class="hero-names fade-up delay-1">
+        <p class="hero-subtitle fade-up">Together with our families,</p>
+        <p class="hero-subtitle-2 fade-up delay-1">Invite you to join our wedding.</p>
+        <h1 class="hero-names fade-up delay-2">
           <span class="name groom-name">Jomar</span>
-          <span class="ampersand">&</span>
-          <span class="name bride-name">[Bride]</span>
+          <span class="ampersand">and</span>
+          <span class="name bride-name">Alyssa Dannah</span>
         </h1>
-        <div class="hero-divider fade-up delay-2">
+        <div class="hero-divider fade-up delay-3">
           <span class="divider-line"></span>
-          <span class="divider-icon">&#9829;</span>
+          <span class="divider-leaf">&#127807;</span>
           <span class="divider-line"></span>
         </div>
-        <p class="hero-date fade-up delay-3">May 24, 2026 &bull; Saturday</p>
-        <p class="hero-location fade-up delay-3">Manila, Philippines</p>
+        <p class="hero-date fade-up delay-3">Wednesday, 27th of May 2026</p>
+        <p class="hero-time fade-up delay-4">at 1 o'clock in the afternoon</p>
         <div class="hero-couple-photo fade-up delay-4">
           <div class="couple-frame">
             <div class="placeholder-photo">
@@ -83,7 +89,7 @@
       <div class="section-inner">
         <div class="section-header reveal">
           <p class="section-label">A Note From Us</p>
-          <h2 class="section-title">Dear Family & Friends</h2>
+          <h2 class="section-title">Dear Family &amp; Friends</h2>
         </div>
         <div class="message-card reveal delay-1">
           <div class="message-quote-mark">&ldquo;</div>
@@ -98,13 +104,156 @@
           </p>
           <div class="message-signature">
             <p>With all our love,</p>
-            <p class="signature-names">Jomar & [Bride]</p>
+            <p class="signature-names">Jomar &amp; Alyssa Dannah</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Section 3: Dress Code -->
+    <!-- Section 3: Entourage -->
+    <section id="entourage" class="section entourage-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <div class="section-flower" aria-hidden="true">&#127806;</div>
+          <h2 class="section-title section-title--light">Entourage</h2>
+        </div>
+
+        <!-- Parents -->
+        <div class="entourage-group reveal delay-1">
+          <div class="entourage-row">
+            <div class="entourage-col">
+              <h3 class="entourage-heading">Parents of the Groom</h3>
+              <p>Mr. Joven T. Austria</p>
+              <p>Mrs. Mary Ann R. Austria &dagger;</p>
+            </div>
+            <div class="entourage-col">
+              <h3 class="entourage-heading">Parents of the Bride</h3>
+              <p>Mr. Rodel P. Rodriguez</p>
+              <p>Mrs. Marissa R. Rodriguez</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Principal Sponsors -->
+        <div class="entourage-group reveal delay-1">
+          <h3 class="entourage-heading entourage-heading--center">Principal Sponsors</h3>
+          <div class="entourage-row">
+            <div class="entourage-col">
+              <p>Mr. Louie Zamora</p>
+              <p>Mr. Ramon Ballesteros</p>
+              <p>Mr. Pablo Mendoza</p>
+              <p>Mr. Francis Raymundo</p>
+              <p>Mr. Marlon De Torres</p>
+              <p>Mr. John Lawrence Raymundo</p>
+              <p>Mr. Edilbero Montina Jr.</p>
+              <p>Mr. Archelandro Galangan</p>
+            </div>
+            <div class="entourage-col">
+              <p>Mrs. Rosalyn Sajulga</p>
+              <p>Mrs. Helen Concepcion</p>
+              <p>Mrs. Lenie Jalalon</p>
+              <p>Mrs. Rhia Mhindha Nolasco</p>
+              <p>Ms. Jesli Vizcarra</p>
+              <p>Mrs. Jem Asban</p>
+              <p>Mrs. Janina Dolorso</p>
+              <p>Mrs. Arcelynn Taroja</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Best Man & Maid of Honor -->
+        <div class="entourage-group reveal delay-1">
+          <div class="entourage-row">
+            <div class="entourage-col">
+              <h3 class="entourage-heading">Best Man</h3>
+              <p>Alexander Galvez</p>
+            </div>
+            <div class="entourage-col">
+              <h3 class="entourage-heading">Maid of Honor</h3>
+              <p>Grace Ann Rodriguez</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Groomsmen & Bridesmaids -->
+        <div class="entourage-group reveal delay-1">
+          <div class="entourage-row">
+            <div class="entourage-col">
+              <h3 class="entourage-heading">Groomsmen</h3>
+              <p>Kim Irvin Caparas</p>
+              <p>Jaymark Salonga</p>
+              <p>Jheyzer De Dios</p>
+              <p>Spencer Malabanan</p>
+              <p>Thomas Patrick Cruz</p>
+              <p>Mark Joseph Madlang-awa</p>
+            </div>
+            <div class="entourage-col">
+              <h3 class="entourage-heading">Bridesmaids</h3>
+              <p>Eula Mae Camingal</p>
+              <p>Denise Elaine Salonga</p>
+              <p>Marie Angela Narrajos</p>
+              <p>Precious Joy Sanchez</p>
+              <p>Mary Jeanallaine Abrera</p>
+              <p>Gabrielle Ann Madlang-awa</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Sponsors -->
+        <div class="entourage-group reveal delay-1">
+          <h3 class="entourage-heading entourage-heading--center">Secondary Sponsors</h3>
+          <div class="secondary-sponsors">
+            <div class="sponsor-role">
+              <span class="sponsor-label">Candle</span>
+              <div class="sponsor-pair">
+                <span>Dominic Demiar</span>
+                <span>Roxette Ann Sajulga</span>
+              </div>
+            </div>
+            <div class="sponsor-role">
+              <span class="sponsor-label">Cord</span>
+              <div class="sponsor-pair">
+                <span>Jan Benedict Austria</span>
+                <span>Jazmin Sofia Ballesteros</span>
+              </div>
+            </div>
+            <div class="sponsor-role">
+              <span class="sponsor-label">Veil</span>
+              <div class="sponsor-pair">
+                <span>Jazper Ruedas</span>
+                <span>Claudine Narciso</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ring Bearer, Coin Bearer, Bible Bearer, Flower Girls -->
+        <div class="entourage-group reveal delay-1">
+          <div class="entourage-row entourage-row--wrap">
+            <div class="entourage-col entourage-col--small">
+              <h3 class="entourage-heading">Ring Bearer</h3>
+              <p>Twix</p>
+            </div>
+            <div class="entourage-col entourage-col--small">
+              <h3 class="entourage-heading">Coin Bearer</h3>
+              <p>Jhayce Crixus De Guzman</p>
+            </div>
+            <div class="entourage-col entourage-col--small">
+              <h3 class="entourage-heading">Bible Bearer</h3>
+              <p>Malic De Torres</p>
+            </div>
+            <div class="entourage-col entourage-col--small">
+              <h3 class="entourage-heading">Flower Girls</h3>
+              <p>Zephyrine Dione Rodriguez</p>
+              <p>Jann Elora Austria</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 4: Dress Code -->
     <section id="dresscode" class="section dresscode-section">
       <div class="section-inner">
         <div class="section-header reveal">
@@ -112,54 +261,85 @@
           <h2 class="section-title">Dress Code</h2>
         </div>
         <div class="dresscode-content">
-          <div class="dresscode-theme reveal delay-1">
-            <h3 class="dresscode-theme-title">Semi-Formal / Garden Elegance</h3>
-            <p class="dresscode-note">We kindly ask our guests to follow the color palette below</p>
+          <div class="dresscode-subsection reveal delay-1">
+            <h3 class="dresscode-sub-title">Principal Sponsors</h3>
+            <div class="dresscode-details">
+              <div class="dresscode-card">
+                <div class="dresscode-card-icon">&#128087;</div>
+                <h4>Gentlemen</h4>
+                <p>Barong and Black Pants</p>
+              </div>
+              <div class="dresscode-card">
+                <div class="dresscode-card-icon">&#128090;</div>
+                <h4>Ladies</h4>
+                <p>Long Dress (Beige/Cream)</p>
+              </div>
+            </div>
           </div>
+
+          <div class="dresscode-subsection reveal delay-2">
+            <h3 class="dresscode-sub-title">Guests</h3>
+            <p class="dresscode-note">We would love to see you in <strong>semi-formal attire</strong>.<br />We encourage you to dress according to our wedding colors.</p>
+          </div>
+
           <div class="color-palette reveal delay-2">
-            <div class="color-swatch" style="--swatch-color: #D4A574;">
+            <div class="color-swatch" style="--swatch-color: #D4B896;">
               <div class="swatch-circle"></div>
-              <span class="swatch-name">Champagne</span>
+              <span class="swatch-name">Beige</span>
             </div>
-            <div class="color-swatch" style="--swatch-color: #8B7355;">
+            <div class="color-swatch" style="--swatch-color: #B8976A;">
               <div class="swatch-circle"></div>
-              <span class="swatch-name">Mocha</span>
+              <span class="swatch-name">Tan</span>
             </div>
-            <div class="color-swatch" style="--swatch-color: #C9B99A;">
+            <div class="color-swatch" style="--swatch-color: #8B6F47;">
               <div class="swatch-circle"></div>
-              <span class="swatch-name">Sand</span>
+              <span class="swatch-name">Brown</span>
             </div>
-            <div class="color-swatch" style="--swatch-color: #F5E6D3;">
+            <div class="color-swatch" style="--swatch-color: #5C3D2E;">
               <div class="swatch-circle"></div>
-              <span class="swatch-name">Cream</span>
+              <span class="swatch-name">Dark Brown</span>
             </div>
-            <div class="color-swatch" style="--swatch-color: #2F4F4F;">
+            <div class="color-swatch" style="--swatch-color: #3B4A3B;">
               <div class="swatch-circle"></div>
               <span class="swatch-name">Forest</span>
             </div>
-            <div class="color-swatch" style="--swatch-color: #4A6741;">
-              <div class="swatch-circle"></div>
-              <span class="swatch-name">Sage</span>
-            </div>
           </div>
-          <div class="dresscode-details reveal delay-3">
-            <div class="dresscode-card">
-              <div class="dresscode-card-icon">&#128087;</div>
-              <h4>For Him</h4>
-              <p>Long sleeves or barong, slacks, and dress shoes. Tie optional.</p>
-            </div>
-            <div class="dresscode-card">
-              <div class="dresscode-card-icon">&#128090;</div>
-              <h4>For Her</h4>
-              <p>Cocktail dress, long dress, or elegant filipiniana within the color palette.</p>
-            </div>
-          </div>
-          <p class="dresscode-reminder reveal delay-4">&#9888; Please avoid wearing white, black, or red. Thank you!</p>
         </div>
       </div>
     </section>
 
-    <!-- Section 4: Venue / Location -->
+    <!-- Section 5: Finer Details -->
+    <section id="details" class="section details-section">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <p class="section-label">Please Take Note</p>
+          <h2 class="section-title section-title--light">Finer Details</h2>
+        </div>
+
+        <div class="details-grid">
+          <div class="detail-card reveal delay-1">
+            <div class="detail-icon">&#128247;</div>
+            <h3>Unplugged Ceremony</h3>
+            <p>We love to capture your faces and not your devices. We invite you to be fully present with us during the ceremony. Please turn off all devices and enjoy this special moment with us.</p>
+            <p class="detail-sub">After the ceremony, feel free to take as many photos/videos as you want.</p>
+          </div>
+
+          <div class="detail-card reveal delay-2">
+            <div class="detail-icon">&#127873;</div>
+            <h3>Gift Guide</h3>
+            <p>We're blessed to have you join us in celebrating our love. While your presence is a gift enough, if you wish to honor us with a gift, a monetary gift would be greatly appreciated.</p>
+          </div>
+
+          <div class="detail-card reveal delay-3">
+            <div class="detail-icon">&#128156;</div>
+            <h3>With Respect</h3>
+            <p>We appreciate your understanding as we've chosen to keep our celebration intimate. We hope you can join us without additional guests.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Venue / Location -->
     <section id="venue" class="section venue-section">
       <div class="section-inner">
         <div class="section-header reveal">
@@ -170,9 +350,9 @@
           <div class="venue-card ceremony-card reveal delay-1">
             <div class="venue-card-icon">&#9962;</div>
             <h3>Ceremony</h3>
-            <p class="venue-name">[Church / Venue Name]</p>
-            <p class="venue-address">[Full Address Placeholder]</p>
-            <p class="venue-time">2:00 PM - 3:30 PM</p>
+            <p class="venue-name">Hearts of Jesus and Mary Parish</p>
+            <p class="venue-address">Mojon, Malolos, Bulacan</p>
+            <p class="venue-time">1:00 PM</p>
             <div class="venue-map-placeholder">
               <div class="map-placeholder-inner">
                 <span class="map-icon">&#128205;</span>
@@ -184,9 +364,9 @@
           <div class="venue-card reception-card reveal delay-2">
             <div class="venue-card-icon">&#127864;</div>
             <h3>Reception</h3>
-            <p class="venue-name">[Reception Venue Name]</p>
-            <p class="venue-address">[Full Address Placeholder]</p>
-            <p class="venue-time">5:00 PM - 10:00 PM</p>
+            <p class="venue-name">Lian Gwen Pavillion</p>
+            <p class="venue-address">Atlag, Malolos, Bulacan</p>
+            <p class="venue-time">5:00 PM</p>
             <div class="venue-map-placeholder">
               <div class="map-placeholder-inner">
                 <span class="map-icon">&#128205;</span>
@@ -199,7 +379,7 @@
       </div>
     </section>
 
-    <!-- Section 5: Wedding Day Timeline -->
+    <!-- Section 7: Wedding Day Timeline -->
     <section id="timeline" class="section timeline-section">
       <div class="section-inner">
         <div class="section-header reveal">
@@ -212,7 +392,7 @@
           <div class="timeline-item reveal" data-side="left">
             <div class="timeline-dot"></div>
             <div class="timeline-card">
-              <span class="timeline-time">1:30 PM</span>
+              <span class="timeline-time">12:30 PM</span>
               <h4>Guest Arrival</h4>
               <p>Guests are seated at the ceremony venue. Light refreshments available.</p>
             </div>
@@ -221,7 +401,7 @@
           <div class="timeline-item reveal" data-side="right">
             <div class="timeline-dot"></div>
             <div class="timeline-card">
-              <span class="timeline-time">2:00 PM</span>
+              <span class="timeline-time">1:00 PM</span>
               <h4>Wedding Ceremony</h4>
               <p>The exchange of vows and rings. Witness the union of two hearts.</p>
             </div>
@@ -230,7 +410,7 @@
           <div class="timeline-item reveal" data-side="left">
             <div class="timeline-dot"></div>
             <div class="timeline-card">
-              <span class="timeline-time">3:30 PM</span>
+              <span class="timeline-time">2:30 PM</span>
               <h4>Photo Session</h4>
               <p>Family and group photos with the newlyweds. Capture the memories!</p>
             </div>
@@ -241,7 +421,7 @@
             <div class="timeline-card">
               <span class="timeline-time">5:00 PM</span>
               <h4>Reception Begins</h4>
-              <p>Welcome cocktails and appetizers. Find your seats and settle in.</p>
+              <p>Welcome cocktails and appetizers at Lian Gwen Pavillion. Find your seats and settle in.</p>
             </div>
           </div>
 
@@ -249,7 +429,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <span class="timeline-time">6:00 PM</span>
-              <h4>Dinner & Toasts</h4>
+              <h4>Dinner &amp; Toasts</h4>
               <p>Enjoy a wonderful dinner with speeches and toasts from loved ones.</p>
             </div>
           </div>
@@ -258,7 +438,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <span class="timeline-time">7:00 PM</span>
-              <h4>First Dance & Cake Cutting</h4>
+              <h4>First Dance &amp; Cake Cutting</h4>
               <p>The couple's first dance followed by the cake cutting ceremony.</p>
             </div>
           </div>
@@ -267,7 +447,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <span class="timeline-time">7:30 PM</span>
-              <h4>Party & Dancing</h4>
+              <h4>Party &amp; Dancing</h4>
               <p>Hit the dance floor! Music, fun, and celebration all night.</p>
             </div>
           </div>
@@ -284,7 +464,7 @@
       </div>
     </section>
 
-    <!-- Section 6: Photo Gallery -->
+    <!-- Section 8: Photo Gallery -->
     <section id="gallery" class="section gallery-section">
       <div class="section-inner">
         <div class="section-header reveal">
@@ -344,7 +524,7 @@
       </div>
     </section>
 
-    <!-- Section 7: RSVP / Quick Overview -->
+    <!-- Section 9: RSVP / Quick Overview -->
     <section id="rsvp" class="section rsvp-section">
       <div class="section-inner">
         <div class="section-header reveal">
@@ -374,7 +554,7 @@
           <a href="#" class="rsvp-btn">Confirm Attendance</a>
         </div>
 
-        <!-- Quick Jump Navigation (all sections) -->
+        <!-- Quick Jump Navigation -->
         <div class="quick-nav reveal delay-2">
           <h3>Quick Navigation</h3>
           <div class="quick-nav-grid">
@@ -386,9 +566,17 @@
               <span class="quick-nav-icon">&#128140;</span>
               <span>Our Words</span>
             </a>
+            <a href="#entourage" class="quick-nav-item">
+              <span class="quick-nav-icon">&#128101;</span>
+              <span>Entourage</span>
+            </a>
             <a href="#dresscode" class="quick-nav-item">
               <span class="quick-nav-icon">&#128087;</span>
               <span>Dress Code</span>
+            </a>
+            <a href="#details" class="quick-nav-item">
+              <span class="quick-nav-icon">&#128221;</span>
+              <span>Details</span>
             </a>
             <a href="#venue" class="quick-nav-item">
               <span class="quick-nav-icon">&#128205;</span>
@@ -408,9 +596,9 @@
 
       <!-- Footer -->
       <footer class="footer">
-        <div class="footer-hearts" aria-hidden="true">&#9829; &#9829; &#9829;</div>
-        <p class="footer-names">Jomar & [Bride]</p>
-        <p class="footer-date">May 24, 2026</p>
+        <div class="footer-leaf" aria-hidden="true">&#127807;</div>
+        <p class="footer-names">Jomar &amp; Alyssa Dannah</p>
+        <p class="footer-date">05 . 27 . 2026</p>
         <p class="footer-credit">Made with love</p>
       </footer>
     </section>
