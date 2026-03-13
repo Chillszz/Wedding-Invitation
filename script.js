@@ -139,9 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Gallery Lightbox ----------
   const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightboxImg = document.getElementById('lightboxImg');
 
   galleryItems.forEach(item => {
     item.addEventListener('click', () => {
+      const src = item.getAttribute('data-src');
+      if (src && lightboxImg) {
+        lightboxImg.src = src;
+        lightboxImg.alt = item.querySelector('img')?.alt || 'Gallery photo';
+      }
       lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
     });

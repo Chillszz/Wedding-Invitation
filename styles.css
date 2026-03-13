@@ -491,27 +491,11 @@ a {
   background: var(--color-cream-dark);
 }
 
-.placeholder-photo {
+.couple-photo {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--color-cream-dark) 0%, #e5d9c7 100%);
-  gap: 12px;
-}
-
-.placeholder-icon {
-  font-size: 3rem;
-}
-
-.placeholder-text {
-  font-family: var(--font-accent);
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
+  object-fit: cover;
+  object-position: center top;
 }
 
 .scroll-down-btn {
@@ -911,6 +895,20 @@ a {
   margin-bottom: 24px;
 }
 
+.venue-photo {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.venue-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .venue-map-placeholder {
   width: 100%;
   height: 180px;
@@ -1087,24 +1085,15 @@ a {
   grid-row: span 2;
 }
 
-.gallery-placeholder {
+.gallery-item img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--color-cream-dark) 0%, #e0d3c1 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: var(--color-text-muted);
-  font-family: var(--font-accent);
-  font-size: 0.75rem;
-  letter-spacing: 1px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.gallery-placeholder-icon {
-  font-size: 2rem;
-  opacity: 0.6;
+.gallery-item:hover img {
+  transform: scale(1.08);
 }
 
 /* ---------- Section 9: RSVP ---------- */
@@ -1307,21 +1296,16 @@ a {
 .lightbox-content {
   max-width: 90vw;
   max-height: 85vh;
-}
-
-.lightbox-placeholder {
-  width: 70vw;
-  height: 70vh;
-  max-width: 800px;
-  max-height: 600px;
-  background: var(--color-cream-dark);
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-accent);
-  font-size: 1rem;
-  color: var(--color-text-muted);
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 /* ---------- Floating Petals ---------- */
@@ -1616,8 +1600,8 @@ a {
     height: 44px;
   }
 
-  .lightbox-placeholder {
-    width: 90vw;
-    height: 60vh;
+  .lightbox-image {
+    max-width: 95vw;
+    max-height: 75vh;
   }
 }
