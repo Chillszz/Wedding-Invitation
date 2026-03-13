@@ -50,6 +50,16 @@ function doPost(e) {
       return response({ success: false, error: 'Phone number is required' });
     }
 
+    // Handle delete action (redo RSVP)
+    if (data.action === 'delete') {
+      var deleteRow = findRowByPhone(sheet, phone);
+      if (deleteRow > 0) {
+        sheet.deleteRow(deleteRow);
+        return response({ success: true, action: 'deleted' });
+      }
+      return response({ success: true, action: 'not_found' });
+    }
+
     // Check if this phone number already exists
     var existingRow = findRowByPhone(sheet, phone);
 

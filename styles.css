@@ -1610,6 +1610,35 @@ a {
   100% { transform: scale(1); }
 }
 
+/* Redo RSVP button */
+.rsvp-redo-btn {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1.5px solid var(--color-text-muted);
+  padding: 10px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.rsvp-redo-btn:hover {
+  color: var(--color-green-dark);
+  border-color: var(--color-green-dark);
+  transform: translateY(-1px);
+}
+
+.rsvp-redo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Locked fields (edit mode) */
 .rsvp-locked {
   background: #f0f0f0 !important;
