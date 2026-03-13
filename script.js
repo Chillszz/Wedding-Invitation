@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- RSVP Modal ----------
   // *** PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ***
-  const GOOGLE_SCRIPT_URL = '';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzR1a9EjllsWSYhSatyJJt7HftvW3A4As37Q5oARUkYyLLYrTxhFE_BOjOl85NIbtri/exec';
 
   const rsvpModal = document.getElementById('rsvpModal');
   const openRsvpBtn = document.getElementById('openRsvpBtn');
