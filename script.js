@@ -253,6 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ---------- RSVP Modal ----------
+  // *** PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ***
+  const GOOGLE_SCRIPT_URL = '';
+
   const rsvpModal = document.getElementById('rsvpModal');
   const openRsvpBtn = document.getElementById('openRsvpBtn');
   const closeRsvpBtn = document.getElementById('closeRsvpBtn');
@@ -275,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     message: document.getElementById('rsvpMessageField'),
   };
 
-  // Helper to get saved RSVP
+  // Helper to get saved RSVP from localStorage
   function getSavedRsvp() {
     try {
       return JSON.parse(localStorage.getItem('rsvpSubmitted'));
@@ -300,22 +303,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Load edit mode if already submitted
-  function loadEditMode() {
-    const saved = getSavedRsvp();
-    if (!saved) return false;
+  // Reset form to fresh state (used when sheet says they're removed)
+  function resetFormToFresh() {
+    localStorage.removeItem('rsvpSubmitted');
+    openRsvpBtn.textContent = 'Confirm Attendance';
 
-    // Update button text
+    // Unlock all fields
+    rsvpNameInput.value = '';
+    rsvpNameInput.readOnly = false;
+    rsvpNameInput.classList.remove('rsvp-locked');
+
+    rsvpPhoneInput.value = '';
+    rsvpPhoneInput.readOnly = false;
+    rsvpPhoneInput.classList.remove('rsvp-locked');
+
+    rsvpAttending.value = '';
+    rsvpAttending.disabled = false;
+    rsvpAttending.classList.remove('rsvp-locked');
+
+    // Reset event radios
+    const eventRadios = document.querySelectorAll('input[name="event"]');
+    eventRadios.forEach(radio => { radio.disabled = false; });
+    document.querySelector('input[name="event"][value="both"]').checked = true;
+    conditionalFields.event.classList.remove('rsvp-locked-field');
+
+    // Hide conditional fields
+    conditionalFields.event.style.display = 'none';
+    conditionalFields.guestCount.style.display = 'none';
+    conditionalFields.guestNames.style.display = 'none';
+    conditionalFields.message.style.display = 'none';
+
+    rsvpGuestCount.value = '1';
+    rsvpGuestNames.innerHTML = '';
+    rsvpMessageInput.value = '';
+
+    // Show form, hide success states
+    rsvpForm.style.display = '';
+    rsvpSuccess.style.display = 'none';
+    rsvpDecline.style.display = 'none';
+    rsvpSubmitBtn.disabled = false;
+    rsvpSubmitBtn.textContent = 'Send RSVP';
+  }
+
+  // Load edit mode from saved data
+  function applyEditMode(saved) {
     openRsvpBtn.textContent = 'Update RSVP';
 
-    // If they declined, just show the decline message — no edits allowed
     if (saved.attending === 'no') {
       rsvpForm.style.display = 'none';
       rsvpDecline.style.display = '';
-      return true;
+      return;
     }
 
-    // Fill in locked fields
+    // Lock fields
     rsvpNameInput.value = saved.name;
     rsvpNameInput.readOnly = true;
     rsvpNameInput.classList.add('rsvp-locked');
@@ -324,7 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rsvpPhoneInput.readOnly = true;
     rsvpPhoneInput.classList.add('rsvp-locked');
 
-    // Lock attending select to "yes" — remove the decline option to prevent trolling
     rsvpAttending.value = 'yes';
     rsvpAttending.disabled = true;
     rsvpAttending.classList.add('rsvp-locked');
@@ -334,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
     conditionalFields.guestCount.style.display = '';
     conditionalFields.message.style.display = '';
 
-    // Lock event radio — keep it displayed but disabled
+    // Lock event radios
     const eventRadios = document.querySelectorAll('input[name="event"]');
     eventRadios.forEach(radio => {
       radio.disabled = true;
@@ -342,23 +381,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     conditionalFields.event.classList.add('rsvp-locked-field');
 
-    // Restore editable fields
+    // Editable fields
     rsvpGuestCount.value = saved.guestCount || '1';
     buildGuestInputs(parseInt(saved.guestCount, 10), saved.guestNames);
     rsvpMessageInput.value = saved.message || '';
 
-    // Change submit button text
     rsvpSubmitBtn.textContent = 'Update Details';
-
-    return true;
+    rsvpSubmitBtn.disabled = false;
+    rsvpForm.style.display = '';
+    rsvpSuccess.style.display = 'none';
+    rsvpDecline.style.display = 'none';
   }
 
-  const isEditMode = loadEditMode();
+  // Check Google Sheet for existing RSVP (verifies against the sheet, not just localStorage)
+  async function checkSheetForRsvp(phone) {
+    if (!GOOGLE_SCRIPT_URL || !phone) return null;
+    try {
+      const url = `${GOOGLE_SCRIPT_URL}?phone=${encodeURIComponent(phone)}`;
+      const res = await fetch(url);
+      const json = await res.json();
+      if (json.exists && json.data) return json.data;
+      return null;
+    } catch {
+      return null; // If sheet check fails, fall back to localStorage
+    }
+  }
 
-  // Open modal
-  openRsvpBtn.addEventListener('click', () => {
+  // Initialize on page load — use localStorage first, verify with sheet on modal open
+  const savedRsvp = getSavedRsvp();
+  if (savedRsvp) {
+    applyEditMode(savedRsvp);
+  }
+
+  // Open modal — verify with Google Sheet each time
+  openRsvpBtn.addEventListener('click', async () => {
     rsvpModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // If we have a saved phone, check the sheet to see if they were removed
+    const saved = getSavedRsvp();
+    if (saved && GOOGLE_SCRIPT_URL) {
+      const sheetData = await checkSheetForRsvp(saved.phone);
+      if (!sheetData) {
+        // They were removed from the sheet — reset to fresh form
+        resetFormToFresh();
+      } else {
+        // Sheet data might have updates (e.g., you edited it) — sync
+        const synced = { ...saved, ...sheetData };
+        localStorage.setItem('rsvpSubmitted', JSON.stringify(synced));
+        applyEditMode(synced);
+      }
+    }
   });
 
   // Close modal
@@ -372,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === rsvpModal) closeRsvpModal();
   });
 
-  // Show/hide fields based on attending selection (only for first-time users)
+  // Show/hide fields based on attending selection (first-time only)
   rsvpAttending.addEventListener('change', () => {
     const isYes = rsvpAttending.value === 'yes';
     conditionalFields.event.style.display = isYes ? '' : 'none';
@@ -391,8 +464,8 @@ document.addEventListener('DOMContentLoaded', () => {
     buildGuestInputs(count);
   });
 
-  // Form submit
-  rsvpForm.addEventListener('submit', (e) => {
+  // Form submit — save to Google Sheet + localStorage
+  rsvpForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const saved = getSavedRsvp();
@@ -413,7 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const isAttending = isUpdate ? saved.attending === 'yes' : rsvpAttending.value === 'yes';
 
-    // Build form data — merge locked fields from saved data in edit mode
+    // Build form data
     const formData = {
       name: isUpdate ? saved.name : rsvpNameInput.value.trim(),
       phone: isUpdate ? saved.phone : rsvpPhoneInput.value.trim(),
@@ -422,37 +495,55 @@ document.addEventListener('DOMContentLoaded', () => {
       guestCount: isAttending ? rsvpGuestCount.value : '0',
       guestNames: [],
       message: isAttending ? rsvpMessageInput.value.trim() : '',
-      submittedAt: isUpdate ? saved.submittedAt : new Date().toISOString(),
-      updatedAt: isUpdate ? new Date().toISOString() : undefined,
     };
 
-    // Collect guest names
     if (isAttending) {
       rsvpGuestNames.querySelectorAll('input').forEach(input => {
         if (input.value.trim()) formData.guestNames.push(input.value.trim());
       });
     }
 
-    // Disable button while "sending"
+    // Disable button
     rsvpSubmitBtn.disabled = true;
     rsvpSubmitBtn.textContent = 'Saving...';
 
-    // Save to localStorage
+    // Send to Google Sheet
+    let sheetSuccess = false;
+    if (GOOGLE_SCRIPT_URL) {
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(formData),
+        });
+        const json = await res.json();
+        sheetSuccess = json.success;
+      } catch {
+        sheetSuccess = false;
+      }
+    }
+
+    // Always save to localStorage as backup
     localStorage.setItem('rsvpSubmitted', JSON.stringify(formData));
 
     // Show result
-    setTimeout(() => {
-      rsvpForm.style.display = 'none';
-      if (isAttending) {
-        rsvpSuccess.querySelector('h3').textContent = isUpdate ? 'Updated!' : 'Thank You!';
-        rsvpSuccess.querySelector('p').innerHTML = isUpdate
-          ? 'Your details have been updated.<br/>See you at the celebration!'
-          : 'Your RSVP has been received.<br/>We can\'t wait to celebrate with you!';
-        rsvpSuccess.style.display = '';
-      } else {
-        rsvpDecline.style.display = '';
-      }
-      openRsvpBtn.textContent = 'Update RSVP';
-    }, 800);
+    rsvpForm.style.display = 'none';
+    if (isAttending) {
+      rsvpSuccess.querySelector('h3').textContent = isUpdate ? 'Updated!' : 'Thank You!';
+      rsvpSuccess.querySelector('p').innerHTML = isUpdate
+        ? 'Your details have been updated.<br/>See you at the celebration!'
+        : 'Your RSVP has been received.<br/>We can\'t wait to celebrate with you!';
+      rsvpSuccess.style.display = '';
+    } else {
+      rsvpDecline.style.display = '';
+    }
+    openRsvpBtn.textContent = 'Update RSVP';
+
+    // Show warning if sheet save failed
+    if (GOOGLE_SCRIPT_URL && !sheetSuccess) {
+      const warning = document.createElement('p');
+      warning.style.cssText = 'color: #e67e22; font-size: 0.85rem; margin-top: 12px; font-family: var(--font-body);';
+      warning.textContent = 'Note: There was an issue saving online. Your RSVP has been saved locally. Please try again later.';
+      (isAttending ? rsvpSuccess : rsvpDecline).appendChild(warning);
+    }
   });
 });
