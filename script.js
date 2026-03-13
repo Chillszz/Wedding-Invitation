@@ -547,34 +547,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ---------- Redo RSVP ----------
-  async function handleRedoRsvp(btn) {
-    const saved = getSavedRsvp();
-    if (!saved) { resetFormToFresh(); return; }
-
-    btn.disabled = true;
-    btn.textContent = 'Resetting...';
-
-    // Delete from Google Sheet
-    if (GOOGLE_SCRIPT_URL && saved.phone) {
-      try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          body: JSON.stringify({ phone: saved.phone, action: 'delete' }),
-        });
-      } catch { /* ignore — still reset locally */ }
-    }
-
-    // Reset everything
-    resetFormToFresh();
-    btn.disabled = false;
-    btn.textContent = 'Redo RSVP';
-  }
-
-  document.getElementById('rsvpRedoBtn').addEventListener('click', function() {
-    handleRedoRsvp(this);
-  });
-  document.getElementById('rsvpRedoDeclineBtn').addEventListener('click', function() {
-    handleRedoRsvp(this);
-  });
 });
