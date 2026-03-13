@@ -593,6 +593,162 @@ a {
   margin-top: 4px;
 }
 
+/* ---------- Section 2.5: Save the Date ---------- */
+.savethedate-section {
+  background: var(--color-cream);
+  padding: 80px 24px;
+  min-height: auto;
+}
+
+.savethedate-content {
+  text-align: center;
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  border: 1px solid rgba(138, 154, 126, 0.3);
+  background: linear-gradient(180deg, rgba(253, 248, 240, 0.9) 0%, rgba(240, 230, 214, 0.5) 100%);
+}
+
+.savethedate-content::before,
+.savethedate-content::after {
+  content: '';
+  position: absolute;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  top: 8px;
+  left: 8px;
+  border: 1px solid rgba(138, 154, 126, 0.2);
+  pointer-events: none;
+}
+
+.std-leaf-left,
+.std-leaf-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 120px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.std-leaf-left {
+  left: -8px;
+}
+
+.std-leaf-right {
+  right: -8px;
+}
+
+.std-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-green-dark);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.std-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-sage);
+  margin: 0 auto 20px;
+  opacity: 0.6;
+}
+
+.std-date-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.std-month {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--color-text-muted);
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  padding-right: 16px;
+}
+
+.std-day {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 15vw, 8rem);
+  font-weight: 700;
+  color: var(--color-green-dark);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.std-year {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--color-text-muted);
+  writing-mode: vertical-lr;
+  padding-left: 16px;
+}
+
+.std-day-name {
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.std-time {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--color-text-dark);
+  margin-bottom: 24px;
+}
+
+.std-venue {
+  padding-top: 20px;
+  border-top: 1px solid rgba(138, 154, 126, 0.2);
+}
+
+.std-venue-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-green-dark);
+  margin-bottom: 4px;
+}
+
+.std-venue-loc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+  .savethedate-content {
+    padding: 40px 24px;
+  }
+
+  .std-leaf-left,
+  .std-leaf-right {
+    width: 40px;
+    height: 80px;
+  }
+}
+
 /* ---------- Section 3: Entourage ---------- */
 .entourage-section {
   background: var(--color-green-dark);
