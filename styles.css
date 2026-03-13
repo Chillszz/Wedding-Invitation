@@ -622,25 +622,6 @@ a {
   pointer-events: none;
 }
 
-.std-leaf-left,
-.std-leaf-right {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 120px;
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.std-leaf-left {
-  left: -8px;
-}
-
-.std-leaf-right {
-  right: -8px;
-}
-
 .std-label {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 5vw, 2.5rem);
@@ -648,44 +629,70 @@ a {
   font-style: italic;
   color: var(--color-green-dark);
   letter-spacing: 2px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
-.std-line {
-  border: none;
-  width: 60px;
+/* Ornament divider: line — diamond — line */
+.std-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.std-ornament-line {
+  width: 40px;
   height: 1px;
   background: var(--color-sage);
-  margin: 12px auto;
   opacity: 0.6;
 }
 
-.std-month {
-  font-family: var(--font-accent);
-  font-size: 1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  color: var(--color-text-muted);
-  margin: 0;
+.std-ornament-diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--color-sage);
+  transform: rotate(45deg);
+  opacity: 0.6;
+  flex-shrink: 0;
 }
 
-.std-day {
-  font-size: 4.5rem;
+/* Date row: May | 27 | 2026 side by side */
+.std-date-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 8px 0 12px;
+}
+
+.std-date-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.std-date-col-center {
+  border-left: 1px solid rgba(138, 154, 126, 0.4);
+  border-right: 1px solid rgba(138, 154, 126, 0.4);
+}
+
+.std-col-label {
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--color-text-muted);
+}
+
+.std-day-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
   font-weight: 700;
   color: var(--color-green-dark);
   line-height: 1;
-  margin: -4px 0 -2px;
-  padding: 0;
-}
-
-.std-year {
-  font-family: var(--font-accent);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 6px;
-  color: var(--color-text-muted);
-  margin: 0;
 }
 
 .std-day-name {
@@ -703,12 +710,13 @@ a {
   font-size: 1.05rem;
   font-style: italic;
   color: var(--color-text-dark);
-  margin-bottom: 24px;
+  margin-bottom: 8px;
 }
 
 .std-venue {
   padding-top: 20px;
   border-top: 1px solid rgba(138, 154, 126, 0.2);
+  margin-top: 8px;
 }
 
 .std-venue-name {
@@ -731,10 +739,12 @@ a {
     padding: 40px 24px;
   }
 
-  .std-leaf-left,
-  .std-leaf-right {
-    width: 40px;
-    height: 80px;
+  .std-date-col {
+    padding: 0 14px;
+  }
+
+  .std-day-num {
+    font-size: 2.5rem;
   }
 }
 
