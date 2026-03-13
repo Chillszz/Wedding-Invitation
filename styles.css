@@ -120,31 +120,26 @@ a {
   width: 100%;
   height: 55%;
   background: #334333;
-  clip-path: none;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   transition: transform 0.6s ease;
   z-index: 4;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: visible;
-}
-
-/* The V-shaped flap using ::before so seal stays visible */
-.envelope-flap::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #334333;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  z-index: -1;
 }
 
 .envelope-overlay.opening .envelope-flap {
   transform: rotateX(180deg);
 }
 
-/* Wax Seal - sits at the tip of the flap */
+.envelope-overlay.opening .wax-seal {
+  animation: sealFade 0.4s ease forwards;
+}
+
+@keyframes sealFade {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -80%) scale(0.8); }
+}
+
+/* Wax Seal - positioned at the flap tip on the envelope */
 .wax-seal {
   width: 52px;
   height: 52px;
@@ -154,12 +149,14 @@ a {
     0 3px 10px rgba(0, 0, 0, 0.4),
     inset 0 -2px 4px rgba(0, 0, 0, 0.3),
     inset 0 2px 3px rgba(180, 150, 100, 0.2);
-  position: relative;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(50%);
 }
 
 /* Wax seal bumpy edge */
@@ -175,13 +172,18 @@ a {
 }
 
 .seal-inner {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 1.5px solid rgba(180, 150, 100, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.seal-botanical {
+  width: 34px;
+  height: 34px;
 }
 
 .seal-initials {
@@ -924,6 +926,10 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
+}
+
+.reception-card .venue-photo img {
+  object-position: center 20%;
 }
 
 .venue-map-placeholder {
