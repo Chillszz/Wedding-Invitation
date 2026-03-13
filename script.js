@@ -262,6 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const rsvpGuestNames = document.getElementById('rsvpGuestNames');
   const rsvpSuccess = document.getElementById('rsvpSuccess');
   const rsvpDecline = document.getElementById('rsvpDecline');
+  const rsvpNameInput = document.getElementById('rsvpName');
+  const rsvpPhoneInput = document.getElementById('rsvpPhone');
+  const rsvpSubmitBtn = document.getElementById('rsvpSubmitBtn');
+  const rsvpMessageInput = document.getElementById('rsvpMessage');
 
   // Conditional fields
   const conditionalFields = {
@@ -271,10 +275,85 @@ document.addEventListener('DOMContentLoaded', () => {
     message: document.getElementById('rsvpMessageField'),
   };
 
-  // Check if already submitted
-  if (localStorage.getItem('rsvpSubmitted')) {
-    openRsvpBtn.textContent = 'RSVP Submitted ✓';
+  // Helper to get saved RSVP
+  function getSavedRsvp() {
+    try {
+      return JSON.parse(localStorage.getItem('rsvpSubmitted'));
+    } catch { return null; }
   }
+
+  // Helper to build guest name inputs
+  function buildGuestInputs(count, savedNames) {
+    rsvpGuestNames.innerHTML = '';
+    if (count > 1) {
+      conditionalFields.guestNames.style.display = '';
+      for (let i = 2; i <= count; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = `Guest ${i} full name`;
+        input.name = `guest${i}`;
+        if (savedNames && savedNames[i - 2]) input.value = savedNames[i - 2];
+        rsvpGuestNames.appendChild(input);
+      }
+    } else {
+      conditionalFields.guestNames.style.display = 'none';
+    }
+  }
+
+  // Load edit mode if already submitted
+  function loadEditMode() {
+    const saved = getSavedRsvp();
+    if (!saved) return false;
+
+    // Update button text
+    openRsvpBtn.textContent = 'Update RSVP';
+
+    // If they declined, just show the decline message — no edits allowed
+    if (saved.attending === 'no') {
+      rsvpForm.style.display = 'none';
+      rsvpDecline.style.display = '';
+      return true;
+    }
+
+    // Fill in locked fields
+    rsvpNameInput.value = saved.name;
+    rsvpNameInput.readOnly = true;
+    rsvpNameInput.classList.add('rsvp-locked');
+
+    rsvpPhoneInput.value = saved.phone;
+    rsvpPhoneInput.readOnly = true;
+    rsvpPhoneInput.classList.add('rsvp-locked');
+
+    // Lock attending select to "yes" — remove the decline option to prevent trolling
+    rsvpAttending.value = 'yes';
+    rsvpAttending.disabled = true;
+    rsvpAttending.classList.add('rsvp-locked');
+
+    // Show attending fields
+    conditionalFields.event.style.display = '';
+    conditionalFields.guestCount.style.display = '';
+    conditionalFields.message.style.display = '';
+
+    // Lock event radio — keep it displayed but disabled
+    const eventRadios = document.querySelectorAll('input[name="event"]');
+    eventRadios.forEach(radio => {
+      radio.disabled = true;
+      if (radio.value === saved.event) radio.checked = true;
+    });
+    conditionalFields.event.classList.add('rsvp-locked-field');
+
+    // Restore editable fields
+    rsvpGuestCount.value = saved.guestCount || '1';
+    buildGuestInputs(parseInt(saved.guestCount, 10), saved.guestNames);
+    rsvpMessageInput.value = saved.message || '';
+
+    // Change submit button text
+    rsvpSubmitBtn.textContent = 'Update Details';
+
+    return true;
+  }
+
+  const isEditMode = loadEditMode();
 
   // Open modal
   openRsvpBtn.addEventListener('click', () => {
@@ -293,13 +372,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === rsvpModal) closeRsvpModal();
   });
 
-  // Show/hide fields based on attending selection
+  // Show/hide fields based on attending selection (only for first-time users)
   rsvpAttending.addEventListener('change', () => {
     const isYes = rsvpAttending.value === 'yes';
     conditionalFields.event.style.display = isYes ? '' : 'none';
     conditionalFields.guestCount.style.display = isYes ? '' : 'none';
     conditionalFields.message.style.display = isYes ? '' : 'none';
-    // Reset guest names when switching
     if (!isYes) {
       conditionalFields.guestNames.style.display = 'none';
       rsvpGuestNames.innerHTML = '';
@@ -310,52 +388,42 @@ document.addEventListener('DOMContentLoaded', () => {
   // Dynamic guest name inputs
   rsvpGuestCount.addEventListener('change', () => {
     const count = parseInt(rsvpGuestCount.value, 10);
-    rsvpGuestNames.innerHTML = '';
-    if (count > 1) {
-      conditionalFields.guestNames.style.display = '';
-      for (let i = 2; i <= count; i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = `Guest ${i} full name`;
-        input.name = `guest${i}`;
-        rsvpGuestNames.appendChild(input);
-      }
-    } else {
-      conditionalFields.guestNames.style.display = 'none';
-    }
+    buildGuestInputs(count);
   });
 
   // Form submit
   rsvpForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Basic validation
-    const name = document.getElementById('rsvpName');
-    const phone = document.getElementById('rsvpPhone');
+    const saved = getSavedRsvp();
+    const isUpdate = !!saved;
+
+    // Validation — skip locked fields in edit mode
     let valid = true;
+    if (!isUpdate) {
+      [rsvpNameInput, rsvpPhoneInput, rsvpAttending].forEach(field => {
+        field.classList.remove('error');
+        if (!field.value.trim()) {
+          field.classList.add('error');
+          valid = false;
+        }
+      });
+      if (!valid) return;
+    }
 
-    [name, phone, rsvpAttending].forEach(field => {
-      field.classList.remove('error');
-      if (!field.value.trim()) {
-        field.classList.add('error');
-        valid = false;
-      }
-    });
+    const isAttending = isUpdate ? saved.attending === 'yes' : rsvpAttending.value === 'yes';
 
-    if (!valid) return;
-
-    const isAttending = rsvpAttending.value === 'yes';
-
-    // Gather form data
+    // Build form data — merge locked fields from saved data in edit mode
     const formData = {
-      name: name.value.trim(),
-      phone: phone.value.trim(),
-      attending: rsvpAttending.value,
-      event: isAttending ? (document.querySelector('input[name="event"]:checked')?.value || 'both') : '',
+      name: isUpdate ? saved.name : rsvpNameInput.value.trim(),
+      phone: isUpdate ? saved.phone : rsvpPhoneInput.value.trim(),
+      attending: isUpdate ? saved.attending : rsvpAttending.value,
+      event: isAttending ? (isUpdate ? saved.event : (document.querySelector('input[name="event"]:checked')?.value || 'both')) : '',
       guestCount: isAttending ? rsvpGuestCount.value : '0',
       guestNames: [],
-      message: isAttending ? (document.getElementById('rsvpMessage').value.trim()) : '',
-      submittedAt: new Date().toISOString(),
+      message: isAttending ? rsvpMessageInput.value.trim() : '',
+      submittedAt: isUpdate ? saved.submittedAt : new Date().toISOString(),
+      updatedAt: isUpdate ? new Date().toISOString() : undefined,
     };
 
     // Collect guest names
@@ -366,22 +434,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Disable button while "sending"
-    const submitBtn = document.getElementById('rsvpSubmitBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
+    rsvpSubmitBtn.disabled = true;
+    rsvpSubmitBtn.textContent = 'Saving...';
 
     // Save to localStorage
     localStorage.setItem('rsvpSubmitted', JSON.stringify(formData));
 
-    // Simulate send delay then show success
+    // Show result
     setTimeout(() => {
       rsvpForm.style.display = 'none';
       if (isAttending) {
+        rsvpSuccess.querySelector('h3').textContent = isUpdate ? 'Updated!' : 'Thank You!';
+        rsvpSuccess.querySelector('p').innerHTML = isUpdate
+          ? 'Your details have been updated.<br/>See you at the celebration!'
+          : 'Your RSVP has been received.<br/>We can\'t wait to celebrate with you!';
         rsvpSuccess.style.display = '';
       } else {
         rsvpDecline.style.display = '';
       }
-      openRsvpBtn.textContent = 'RSVP Submitted ✓';
+      openRsvpBtn.textContent = 'Update RSVP';
     }, 800);
   });
 });

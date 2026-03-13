@@ -1610,6 +1610,19 @@ a {
   100% { transform: scale(1); }
 }
 
+/* Locked fields (edit mode) */
+.rsvp-locked {
+  background: #f0f0f0 !important;
+  color: var(--color-text-muted) !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.rsvp-locked-field {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .rsvp-success h3 {
   font-family: var(--font-display);
   font-size: 1.6rem;
