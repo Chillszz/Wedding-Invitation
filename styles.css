@@ -120,51 +120,65 @@ a {
   width: 100%;
   height: 55%;
   background: #334333;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  clip-path: none;
   transform-origin: top center;
   transition: transform 0.6s ease;
-  z-index: 2;
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* The V-shaped flap using ::before so seal stays visible */
+.envelope-flap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #334333;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: -1;
 }
 
 .envelope-overlay.opening .envelope-flap {
   transform: rotateX(180deg);
 }
 
-/* Wax Seal */
+/* Wax Seal - sits at the tip of the flap */
 .wax-seal {
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 38%, #D4A050 0%, #C08530 30%, #A06B25 60%, #8B5E24 100%);
+  background: radial-gradient(circle at 38% 38%, #8B6F47 0%, #7A5E3A 30%, #6B4F30 55%, #5C3D2E 80%, #4A3222 100%);
   box-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.4),
-    inset 0 -2px 5px rgba(0, 0, 0, 0.25),
-    inset 0 2px 4px rgba(255, 210, 130, 0.3);
+    0 3px 10px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 2px 3px rgba(180, 150, 100, 0.2);
   position: relative;
-  z-index: 3;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 16px;
+  transform: translateY(50%);
 }
 
 /* Wax seal bumpy edge */
 .wax-seal::before {
   content: '';
   position: absolute;
-  inset: -5px;
+  inset: -4px;
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 38%, #C08530 0%, #8B5E24 100%);
+  background: radial-gradient(circle at 38% 38%, #7A5E3A 0%, #4A3222 100%);
   z-index: -1;
   mask-image: radial-gradient(circle, transparent 46%, black 46%);
   -webkit-mask-image: radial-gradient(circle, transparent 46%, black 46%);
 }
 
 .seal-inner {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 215, 140, 0.35);
+  border: 1.5px solid rgba(180, 150, 100, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,9 +186,9 @@ a {
 
 .seal-initials {
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(255, 235, 190, 0.85);
+  color: rgba(220, 200, 170, 0.8);
   letter-spacing: 1.5px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -909,6 +923,7 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 30%;
 }
 
 .venue-map-placeholder {
