@@ -251,4 +251,137 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
   }
+
+  // ---------- RSVP Modal ----------
+  const rsvpModal = document.getElementById('rsvpModal');
+  const openRsvpBtn = document.getElementById('openRsvpBtn');
+  const closeRsvpBtn = document.getElementById('closeRsvpBtn');
+  const rsvpForm = document.getElementById('rsvpForm');
+  const rsvpAttending = document.getElementById('rsvpAttending');
+  const rsvpGuestCount = document.getElementById('rsvpGuestCount');
+  const rsvpGuestNames = document.getElementById('rsvpGuestNames');
+  const rsvpSuccess = document.getElementById('rsvpSuccess');
+  const rsvpDecline = document.getElementById('rsvpDecline');
+
+  // Conditional fields
+  const conditionalFields = {
+    event: document.getElementById('rsvpEventField'),
+    guestCount: document.getElementById('rsvpGuestCountField'),
+    guestNames: document.getElementById('rsvpGuestNamesField'),
+    message: document.getElementById('rsvpMessageField'),
+  };
+
+  // Check if already submitted
+  if (localStorage.getItem('rsvpSubmitted')) {
+    openRsvpBtn.textContent = 'RSVP Submitted ✓';
+  }
+
+  // Open modal
+  openRsvpBtn.addEventListener('click', () => {
+    rsvpModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Close modal
+  function closeRsvpModal() {
+    rsvpModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  closeRsvpBtn.addEventListener('click', closeRsvpModal);
+  rsvpModal.addEventListener('click', (e) => {
+    if (e.target === rsvpModal) closeRsvpModal();
+  });
+
+  // Show/hide fields based on attending selection
+  rsvpAttending.addEventListener('change', () => {
+    const isYes = rsvpAttending.value === 'yes';
+    conditionalFields.event.style.display = isYes ? '' : 'none';
+    conditionalFields.guestCount.style.display = isYes ? '' : 'none';
+    conditionalFields.message.style.display = isYes ? '' : 'none';
+    // Reset guest names when switching
+    if (!isYes) {
+      conditionalFields.guestNames.style.display = 'none';
+      rsvpGuestNames.innerHTML = '';
+      rsvpGuestCount.value = '1';
+    }
+  });
+
+  // Dynamic guest name inputs
+  rsvpGuestCount.addEventListener('change', () => {
+    const count = parseInt(rsvpGuestCount.value, 10);
+    rsvpGuestNames.innerHTML = '';
+    if (count > 1) {
+      conditionalFields.guestNames.style.display = '';
+      for (let i = 2; i <= count; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = `Guest ${i} full name`;
+        input.name = `guest${i}`;
+        rsvpGuestNames.appendChild(input);
+      }
+    } else {
+      conditionalFields.guestNames.style.display = 'none';
+    }
+  });
+
+  // Form submit
+  rsvpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    const name = document.getElementById('rsvpName');
+    const phone = document.getElementById('rsvpPhone');
+    let valid = true;
+
+    [name, phone, rsvpAttending].forEach(field => {
+      field.classList.remove('error');
+      if (!field.value.trim()) {
+        field.classList.add('error');
+        valid = false;
+      }
+    });
+
+    if (!valid) return;
+
+    const isAttending = rsvpAttending.value === 'yes';
+
+    // Gather form data
+    const formData = {
+      name: name.value.trim(),
+      phone: phone.value.trim(),
+      attending: rsvpAttending.value,
+      event: isAttending ? (document.querySelector('input[name="event"]:checked')?.value || 'both') : '',
+      guestCount: isAttending ? rsvpGuestCount.value : '0',
+      guestNames: [],
+      message: isAttending ? (document.getElementById('rsvpMessage').value.trim()) : '',
+      submittedAt: new Date().toISOString(),
+    };
+
+    // Collect guest names
+    if (isAttending) {
+      rsvpGuestNames.querySelectorAll('input').forEach(input => {
+        if (input.value.trim()) formData.guestNames.push(input.value.trim());
+      });
+    }
+
+    // Disable button while "sending"
+    const submitBtn = document.getElementById('rsvpSubmitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    // Save to localStorage
+    localStorage.setItem('rsvpSubmitted', JSON.stringify(formData));
+
+    // Simulate send delay then show success
+    setTimeout(() => {
+      rsvpForm.style.display = 'none';
+      if (isAttending) {
+        rsvpSuccess.style.display = '';
+      } else {
+        rsvpDecline.style.display = '';
+      }
+      openRsvpBtn.textContent = 'RSVP Submitted ✓';
+    }, 800);
+  });
 });
