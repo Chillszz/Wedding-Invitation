@@ -3,6 +3,12 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ---------- Scroll to Top on Load ----------
+  window.scrollTo(0, 0);
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
   // ---------- Elements ----------
   const envelopeOverlay = document.getElementById('envelope-overlay');
   const openInviteBtn = document.getElementById('openInviteBtn');
