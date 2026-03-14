@@ -1724,6 +1724,27 @@ a {
   opacity: 0.6;
 }
 
+.footer-dev {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  opacity: 0.45;
+  margin-top: 16px;
+  letter-spacing: 0.5px;
+}
+
+.footer-dev a {
+  color: var(--color-green);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.footer-dev a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 /* ---------- Lightbox ---------- */
 .lightbox {
   position: fixed;
