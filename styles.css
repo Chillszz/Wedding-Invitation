@@ -267,6 +267,7 @@ a {
 .nav-hamburger::after {
   content: '';
   position: absolute;
+  left: 0;
   width: 18px;
   height: 2px;
   background: var(--color-green-dark);
