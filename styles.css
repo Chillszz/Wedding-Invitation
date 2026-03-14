@@ -256,7 +256,7 @@ a {
 }
 
 .nav-hamburger {
-  width: 20px;
+  width: 18px;
   height: 2px;
   background: var(--color-green-dark);
   position: relative;
@@ -267,14 +267,14 @@ a {
 .nav-hamburger::after {
   content: '';
   position: absolute;
-  width: 20px;
+  width: 18px;
   height: 2px;
   background: var(--color-green-dark);
   transition: all 0.3s ease;
 }
 
-.nav-hamburger::before { top: -6px; }
-.nav-hamburger::after { top: 6px; }
+.nav-hamburger::before { top: -7px; }
+.nav-hamburger::after { top: 7px; }
 
 .nav-toggle.active .nav-hamburger {
   background: transparent;
