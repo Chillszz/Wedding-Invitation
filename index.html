@@ -795,60 +795,30 @@
       <!-- Form -->
       <form id="rsvpForm" class="rsvp-form" novalidate>
         <div class="rsvp-field">
-          <label for="rsvpName">Full Name <span class="rsvp-required">*</span></label>
+          <label for="rsvpName">Name <span class="rsvp-required">*</span></label>
           <input type="text" id="rsvpName" name="name" placeholder="e.g. Juan Dela Cruz" required />
         </div>
 
         <div class="rsvp-field">
-          <label for="rsvpPhone">Phone Number <span class="rsvp-required">*</span></label>
+          <label for="rsvpEmail">Email <span class="rsvp-required">*</span></label>
+          <input type="email" id="rsvpEmail" name="email" placeholder="e.g. juan@email.com" required />
+        </div>
+
+        <div class="rsvp-field">
+          <label for="rsvpPhone">Phone <span class="rsvp-required">*</span></label>
           <input type="tel" id="rsvpPhone" name="phone" placeholder="e.g. 0917 123 4567" required />
         </div>
 
         <div class="rsvp-field">
-          <label for="rsvpAttending">Will you be attending? <span class="rsvp-required">*</span></label>
-          <select id="rsvpAttending" name="attending" required>
-            <option value="" disabled selected>Select one</option>
-            <option value="yes">Joyfully Accept</option>
-            <option value="no">Respectfully Decline</option>
-          </select>
-        </div>
-
-        <div class="rsvp-field" id="rsvpEventField" style="display: none;">
-          <label>Which event? <span class="rsvp-required">*</span></label>
+          <label>Will you be attending? <span class="rsvp-required">*</span></label>
           <div class="rsvp-radio-group">
-            <label class="rsvp-radio"><input type="radio" name="event" value="both" checked /><span>Both</span></label>
-            <label class="rsvp-radio"><input type="radio" name="event" value="ceremony" /><span>Ceremony Only</span></label>
-            <label class="rsvp-radio"><input type="radio" name="event" value="reception" /><span>Reception Only</span></label>
+            <label class="rsvp-radio"><input type="radio" name="attending" value="yes" required /><span>Yes, I'll be there!</span></label>
+            <label class="rsvp-radio"><input type="radio" name="attending" value="no" /><span>Sorry, can't make it</span></label>
           </div>
         </div>
 
-        <div class="rsvp-field" id="rsvpGuestCountField" style="display: none;">
-          <label for="rsvpGuestCount">Number of Guests (including you)</label>
-          <select id="rsvpGuestCount" name="guestCount">
-            <option value="1" selected>1 — Just me</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-        </div>
-
-        <div class="rsvp-field" id="rsvpGuestNamesField" style="display: none;">
-          <label>Guest Names</label>
-          <div id="rsvpGuestNames" class="rsvp-guest-names">
-            <!-- Dynamic guest name inputs inserted here -->
-          </div>
-        </div>
-
-        <div class="rsvp-field" id="rsvpMessageField" style="display: none;">
-          <label for="rsvpMessage">Message or Dietary Needs <span class="rsvp-optional">(optional)</span></label>
+        <div class="rsvp-field">
+          <label for="rsvpMessage">Message <span class="rsvp-optional">(optional)</span></label>
           <textarea id="rsvpMessage" name="message" rows="3" placeholder="Anything you'd like us to know..."></textarea>
         </div>
 

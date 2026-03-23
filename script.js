@@ -260,23 +260,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const openRsvpBtn = document.getElementById('openRsvpBtn');
   const closeRsvpBtn = document.getElementById('closeRsvpBtn');
   const rsvpForm = document.getElementById('rsvpForm');
-  const rsvpAttending = document.getElementById('rsvpAttending');
-  const rsvpGuestCount = document.getElementById('rsvpGuestCount');
-  const rsvpGuestNames = document.getElementById('rsvpGuestNames');
   const rsvpSuccess = document.getElementById('rsvpSuccess');
   const rsvpDecline = document.getElementById('rsvpDecline');
   const rsvpNameInput = document.getElementById('rsvpName');
+  const rsvpEmailInput = document.getElementById('rsvpEmail');
   const rsvpPhoneInput = document.getElementById('rsvpPhone');
   const rsvpSubmitBtn = document.getElementById('rsvpSubmitBtn');
   const rsvpMessageInput = document.getElementById('rsvpMessage');
-
-  // Conditional fields
-  const conditionalFields = {
-    event: document.getElementById('rsvpEventField'),
-    guestCount: document.getElementById('rsvpGuestCountField'),
-    guestNames: document.getElementById('rsvpGuestNamesField'),
-    message: document.getElementById('rsvpMessageField'),
-  };
 
   // Helper to get saved RSVP from localStorage
   function getSavedRsvp() {
@@ -285,56 +275,30 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch { return null; }
   }
 
-  // Helper to build guest name inputs
-  function buildGuestInputs(count, savedNames) {
-    rsvpGuestNames.innerHTML = '';
-    if (count > 1) {
-      conditionalFields.guestNames.style.display = '';
-      for (let i = 2; i <= count; i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = `Guest ${i} full name`;
-        input.name = `guest${i}`;
-        if (savedNames && savedNames[i - 2]) input.value = savedNames[i - 2];
-        rsvpGuestNames.appendChild(input);
-      }
-    } else {
-      conditionalFields.guestNames.style.display = 'none';
-    }
-  }
-
   // Reset form to fresh state (used when sheet says they're removed)
   function resetFormToFresh() {
     localStorage.removeItem('rsvpSubmitted');
     openRsvpBtn.textContent = 'Confirm Attendance';
 
-    // Unlock all fields
+    // Clear all fields
     rsvpNameInput.value = '';
     rsvpNameInput.readOnly = false;
     rsvpNameInput.classList.remove('rsvp-locked');
+
+    rsvpEmailInput.value = '';
+    rsvpEmailInput.readOnly = false;
+    rsvpEmailInput.classList.remove('rsvp-locked');
 
     rsvpPhoneInput.value = '';
     rsvpPhoneInput.readOnly = false;
     rsvpPhoneInput.classList.remove('rsvp-locked');
 
-    rsvpAttending.value = '';
-    rsvpAttending.disabled = false;
-    rsvpAttending.classList.remove('rsvp-locked');
+    // Reset attending radios
+    document.querySelectorAll('input[name="attending"]').forEach(radio => {
+      radio.checked = false;
+      radio.disabled = false;
+    });
 
-    // Reset event radios
-    const eventRadios = document.querySelectorAll('input[name="event"]');
-    eventRadios.forEach(radio => { radio.disabled = false; });
-    document.querySelector('input[name="event"][value="both"]').checked = true;
-    conditionalFields.event.classList.remove('rsvp-locked-field');
-
-    // Hide conditional fields
-    conditionalFields.event.style.display = 'none';
-    conditionalFields.guestCount.style.display = 'none';
-    conditionalFields.guestNames.style.display = 'none';
-    conditionalFields.message.style.display = 'none';
-
-    rsvpGuestCount.value = '1';
-    rsvpGuestNames.innerHTML = '';
     rsvpMessageInput.value = '';
 
     // Show form, hide success states
@@ -360,30 +324,20 @@ document.addEventListener('DOMContentLoaded', () => {
     rsvpNameInput.readOnly = true;
     rsvpNameInput.classList.add('rsvp-locked');
 
+    rsvpEmailInput.value = saved.email || '';
+    rsvpEmailInput.readOnly = true;
+    rsvpEmailInput.classList.add('rsvp-locked');
+
     rsvpPhoneInput.value = saved.phone;
     rsvpPhoneInput.readOnly = true;
     rsvpPhoneInput.classList.add('rsvp-locked');
 
-    rsvpAttending.value = 'yes';
-    rsvpAttending.disabled = true;
-    rsvpAttending.classList.add('rsvp-locked');
-
-    // Show attending fields
-    conditionalFields.event.style.display = '';
-    conditionalFields.guestCount.style.display = '';
-    conditionalFields.message.style.display = '';
-
-    // Lock event radios
-    const eventRadios = document.querySelectorAll('input[name="event"]');
-    eventRadios.forEach(radio => {
+    // Lock attending radios
+    document.querySelectorAll('input[name="attending"]').forEach(radio => {
       radio.disabled = true;
-      if (radio.value === saved.event) radio.checked = true;
+      if (radio.value === saved.attending) radio.checked = true;
     });
-    conditionalFields.event.classList.add('rsvp-locked-field');
 
-    // Editable fields
-    rsvpGuestCount.value = saved.guestCount || '1';
-    buildGuestInputs(parseInt(saved.guestCount, 10), saved.guestNames);
     rsvpMessageInput.value = saved.message || '';
 
     rsvpSubmitBtn.textContent = 'Update Details';
@@ -445,24 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === rsvpModal) closeRsvpModal();
   });
 
-  // Show/hide fields based on attending selection (first-time only)
-  rsvpAttending.addEventListener('change', () => {
-    const isYes = rsvpAttending.value === 'yes';
-    conditionalFields.event.style.display = isYes ? '' : 'none';
-    conditionalFields.guestCount.style.display = isYes ? '' : 'none';
-    conditionalFields.message.style.display = isYes ? '' : 'none';
-    if (!isYes) {
-      conditionalFields.guestNames.style.display = 'none';
-      rsvpGuestNames.innerHTML = '';
-      rsvpGuestCount.value = '1';
-    }
-  });
-
-  // Dynamic guest name inputs
-  rsvpGuestCount.addEventListener('change', () => {
-    const count = parseInt(rsvpGuestCount.value, 10);
-    buildGuestInputs(count);
-  });
 
   // Form submit — save to Google Sheet + localStorage
   rsvpForm.addEventListener('submit', async (e) => {
@@ -472,36 +408,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const isUpdate = !!saved;
 
     // Validation — skip locked fields in edit mode
+    const attendingValue = document.querySelector('input[name="attending"]:checked')?.value;
     let valid = true;
     if (!isUpdate) {
-      [rsvpNameInput, rsvpPhoneInput, rsvpAttending].forEach(field => {
+      [rsvpNameInput, rsvpEmailInput, rsvpPhoneInput].forEach(field => {
         field.classList.remove('error');
         if (!field.value.trim()) {
           field.classList.add('error');
           valid = false;
         }
       });
+      if (!attendingValue) {
+        valid = false;
+      }
       if (!valid) return;
     }
 
-    const isAttending = isUpdate ? saved.attending === 'yes' : rsvpAttending.value === 'yes';
+    const isAttending = isUpdate ? saved.attending === 'yes' : attendingValue === 'yes';
 
     // Build form data
     const formData = {
       name: isUpdate ? saved.name : rsvpNameInput.value.trim(),
+      email: isUpdate ? saved.email : rsvpEmailInput.value.trim(),
       phone: isUpdate ? saved.phone : rsvpPhoneInput.value.trim(),
-      attending: isUpdate ? saved.attending : rsvpAttending.value,
-      event: isAttending ? (isUpdate ? saved.event : (document.querySelector('input[name="event"]:checked')?.value || 'both')) : '',
-      guestCount: isAttending ? rsvpGuestCount.value : '0',
-      guestNames: [],
-      message: isAttending ? rsvpMessageInput.value.trim() : '',
+      attending: isUpdate ? saved.attending : attendingValue,
+      message: rsvpMessageInput.value.trim(),
     };
-
-    if (isAttending) {
-      rsvpGuestNames.querySelectorAll('input').forEach(input => {
-        if (input.value.trim()) formData.guestNames.push(input.value.trim());
-      });
-    }
 
     // Disable button
     rsvpSubmitBtn.disabled = true;
