@@ -1796,7 +1796,18 @@ a {
   border-radius: 8px;
 }
 
-/* ---------- Floating Petals ---------- */
+/* ---------- Floating Petals (Full-page parallax overlay) ---------- */
+.floating-petals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
 .floating-petals .petal {
   position: absolute;
   width: 12px;
@@ -1805,7 +1816,25 @@ a {
   border-radius: 50% 0 50% 50%;
   opacity: 0;
   pointer-events: none;
-  animation: petalFall linear infinite;
+  will-change: transform, opacity;
+}
+
+/* Depth layers — far petals: small, slow, blurry, dim */
+.floating-petals .petal.petal-far {
+  filter: blur(2px);
+  animation: petalFallFar linear infinite;
+}
+
+/* Depth layers — mid petals: medium size & speed */
+.floating-petals .petal.petal-mid {
+  filter: blur(0.5px);
+  animation: petalFallMid linear infinite;
+}
+
+/* Depth layers — near petals: large, fast, sharp, in-your-face */
+.floating-petals .petal.petal-near {
+  filter: blur(0px);
+  animation: petalFallNear linear infinite;
 }
 
 /* ---------- Animations ---------- */
@@ -1876,20 +1905,75 @@ a {
   }
 }
 
-@keyframes petalFall {
+/* Far layer — slow, gentle sway, subtle */
+@keyframes petalFallFar {
   0% {
     opacity: 0;
-    transform: translateY(-10%) rotate(0deg) translateX(0);
+    transform: translateY(-5%) rotate(0deg) translateX(0);
   }
   10% {
-    opacity: 0.5;
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) translateX(40px);
   }
   90% {
-    opacity: 0.3;
+    opacity: 0.15;
   }
   100% {
     opacity: 0;
-    transform: translateY(110vh) rotate(360deg) translateX(100px);
+    transform: translateY(110vh) rotate(360deg) translateX(-20px);
+  }
+}
+
+/* Mid layer — moderate drift */
+@keyframes petalFallMid {
+  0% {
+    opacity: 0;
+    transform: translateY(-5%) rotate(0deg) translateX(0);
+  }
+  10% {
+    opacity: 0.35;
+  }
+  30% {
+    transform: translateY(30vh) rotate(100deg) translateX(-50px);
+  }
+  70% {
+    transform: translateY(70vh) rotate(250deg) translateX(60px);
+  }
+  90% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(110vh) rotate(380deg) translateX(-30px);
+  }
+}
+
+/* Near layer — fast, large sway, bold presence */
+@keyframes petalFallNear {
+  0% {
+    opacity: 0;
+    transform: translateY(-5%) rotate(0deg) translateX(0) scale(1);
+  }
+  8% {
+    opacity: 0.5;
+  }
+  25% {
+    transform: translateY(25vh) rotate(60deg) translateX(-80px) scale(1.05);
+  }
+  50% {
+    transform: translateY(50vh) rotate(170deg) translateX(70px) scale(0.95);
+  }
+  75% {
+    transform: translateY(75vh) rotate(280deg) translateX(-60px) scale(1.02);
+  }
+  92% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(110vh) rotate(400deg) translateX(40px) scale(1);
   }
 }
 

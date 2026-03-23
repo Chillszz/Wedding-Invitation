@@ -175,36 +175,47 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'auto';
   }
 
-  // ---------- Floating Petals ----------
+  // ---------- Floating Petals (Parallax Depth Layers) ----------
   function createPetals() {
     const petalsContainer = document.querySelector('.floating-petals');
     if (!petalsContainer) return;
 
-    const petalCount = window.innerWidth < 768 ? 8 : 15;
+    const isMobile = window.innerWidth < 768;
     const colors = ['#E8D5A3', '#D4A574', '#C9B99A', '#F5E6D3', '#dbc9a8'];
 
-    for (let i = 0; i < petalCount; i++) {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
+    // Three depth layers: far (background), mid, near (foreground)
+    const layers = [
+      { className: 'petal-far',  count: isMobile ? 6 : 12, sizeMin: 5,  sizeMax: 10, durationMin: 18, durationMax: 28, delayMax: 14 },
+      { className: 'petal-mid',  count: isMobile ? 4 : 10, sizeMin: 9,  sizeMax: 16, durationMin: 12, durationMax: 20, delayMax: 12 },
+      { className: 'petal-near', count: isMobile ? 3 : 6,  sizeMin: 16, sizeMax: 26, durationMin: 8,  durationMax: 14, delayMax: 10 },
+    ];
 
-      const size = Math.random() * 10 + 8;
-      const left = Math.random() * 100;
-      const delay = Math.random() * 10;
-      const duration = Math.random() * 8 + 10;
-      const color = colors[Math.floor(Math.random() * colors.length)];
+    layers.forEach(layer => {
+      for (let i = 0; i < layer.count; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal', layer.className);
 
-      petal.style.cssText = `
-        width: ${size}px;
-        height: ${size}px;
-        left: ${left}%;
-        background: ${color};
-        animation-delay: ${delay}s;
-        animation-duration: ${duration}s;
-        opacity: 0;
-      `;
+        const size = Math.random() * (layer.sizeMax - layer.sizeMin) + layer.sizeMin;
+        const left = Math.random() * 100;
+        const delay = Math.random() * layer.delayMax;
+        const duration = Math.random() * (layer.durationMax - layer.durationMin) + layer.durationMin;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const rotation = Math.random() * 360;
 
-      petalsContainer.appendChild(petal);
-    }
+        petal.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${left}%;
+          background: ${color};
+          animation-delay: ${delay}s;
+          animation-duration: ${duration}s;
+          transform: rotate(${rotation}deg);
+          opacity: 0;
+        `;
+
+        petalsContainer.appendChild(petal);
+      }
+    });
   }
 
   // ---------- Smooth Scroll for Anchor Links ----------
