@@ -252,6 +252,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  // ---------- FAQ Accordion ----------
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isActive = item.classList.contains('active');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+      // Toggle clicked
+      if (!isActive) {
+        item.classList.add('active');
+      }
+
+      btn.setAttribute('aria-expanded', !isActive);
+    });
+  });
+
   // ---------- RSVP Modal ----------
   // *** PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ***
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrWnRC9VmmZL_zajIzKa0nn1YyF5CttBr3HT3Io7hR7R5tGCv-V1SxUSzTpoaEqv-L/exec';
