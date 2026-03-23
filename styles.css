@@ -1804,7 +1804,7 @@ a {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 999;
   overflow: hidden;
 }
 
@@ -2191,6 +2191,25 @@ a {
   .lightbox-image {
     max-width: 95vw;
     max-height: 75vh;
+  }
+
+  /* Petals: reduce blur for mobile GPU perf */
+  .floating-petals .petal.petal-far {
+    filter: blur(1px);
+  }
+  .floating-petals .petal.petal-mid {
+    filter: none;
+  }
+  .floating-petals .petal.petal-near {
+    filter: none;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .floating-petals .petal {
+    animation: none !important;
+    opacity: 0 !important;
   }
 }
 
