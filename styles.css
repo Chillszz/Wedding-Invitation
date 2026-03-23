@@ -2161,11 +2161,10 @@ a {
 }
 
 .faq-chevron {
-  font-size: 1.4rem;
   flex-shrink: 0;
   transition: transform 0.3s ease;
   color: var(--color-brown);
-  line-height: 1;
+  display: block;
 }
 
 .faq-item.active .faq-chevron {
