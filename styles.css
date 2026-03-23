@@ -1806,6 +1806,8 @@ a {
   pointer-events: none;
   z-index: 999;
   overflow: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .floating-petals .petal {
@@ -1912,13 +1914,14 @@ a {
     transform: translateY(-5%) rotate(0deg) translateX(0);
   }
   10% {
-    opacity: 0.2;
+    opacity: 0.35;
   }
   50% {
+    opacity: 0.3;
     transform: translateY(50vh) rotate(180deg) translateX(40px);
   }
   90% {
-    opacity: 0.15;
+    opacity: 0.2;
   }
   100% {
     opacity: 0;
@@ -1933,7 +1936,7 @@ a {
     transform: translateY(-5%) rotate(0deg) translateX(0);
   }
   10% {
-    opacity: 0.35;
+    opacity: 0.5;
   }
   30% {
     transform: translateY(30vh) rotate(100deg) translateX(-50px);
@@ -1942,7 +1945,7 @@ a {
     transform: translateY(70vh) rotate(250deg) translateX(60px);
   }
   90% {
-    opacity: 0.25;
+    opacity: 0.35;
   }
   100% {
     opacity: 0;
@@ -1957,19 +1960,20 @@ a {
     transform: translateY(-5%) rotate(0deg) translateX(0) scale(1);
   }
   8% {
-    opacity: 0.5;
+    opacity: 0.6;
   }
   25% {
     transform: translateY(25vh) rotate(60deg) translateX(-80px) scale(1.05);
   }
   50% {
+    opacity: 0.55;
     transform: translateY(50vh) rotate(170deg) translateX(70px) scale(0.95);
   }
   75% {
     transform: translateY(75vh) rotate(280deg) translateX(-60px) scale(1.02);
   }
   92% {
-    opacity: 0.35;
+    opacity: 0.4;
   }
   100% {
     opacity: 0;
@@ -1982,6 +1986,14 @@ a {
 @media (max-width: 768px) {
   :root {
     --section-padding: 80px 20px;
+  }
+
+  /* Petals: remove blur on mobile — blur + position:fixed breaks on mobile Safari */
+  .floating-petals .petal.petal-far,
+  .floating-petals .petal.petal-mid,
+  .floating-petals .petal.petal-near {
+    filter: none !important;
+    -webkit-filter: none !important;
   }
 
   .envelope {
@@ -2193,15 +2205,12 @@ a {
     max-height: 75vh;
   }
 
-  /* Petals: reduce blur for mobile GPU perf */
-  .floating-petals .petal.petal-far {
-    filter: blur(1px);
-  }
-  .floating-petals .petal.petal-mid {
-    filter: none;
-  }
+  /* Petals: remove ALL blur on mobile — blur + position:fixed breaks on mobile Safari */
+  .floating-petals .petal.petal-far,
+  .floating-petals .petal.petal-mid,
   .floating-petals .petal.petal-near {
-    filter: none;
+    filter: none !important;
+    -webkit-filter: none !important;
   }
 }
 

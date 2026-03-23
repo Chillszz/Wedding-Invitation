@@ -185,9 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Three depth layers: far (background), mid, near (foreground)
     const layers = [
-      { className: 'petal-far',  count: isMobile ? 6 : 12, sizeMin: 5,  sizeMax: 10, durationMin: 18, durationMax: 28, delayMax: 14 },
-      { className: 'petal-mid',  count: isMobile ? 4 : 10, sizeMin: 9,  sizeMax: 16, durationMin: 12, durationMax: 20, delayMax: 12 },
-      { className: 'petal-near', count: isMobile ? 3 : 6,  sizeMin: 16, sizeMax: 26, durationMin: 8,  durationMax: 14, delayMax: 10 },
+      { className: 'petal-far',  count: isMobile ? 8 : 12,  sizeMin: 6,  sizeMax: 12, durationMin: 18, durationMax: 28, delayMax: 14 },
+      { className: 'petal-mid',  count: isMobile ? 6 : 10,  sizeMin: 10, sizeMax: 18, durationMin: 12, durationMax: 20, delayMax: 12 },
+      { className: 'petal-near', count: isMobile ? 4 : 6,   sizeMin: 18, sizeMax: 28, durationMin: 8,  durationMax: 14, delayMax: 10 },
     ];
 
     layers.forEach(layer => {
