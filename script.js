@@ -19,9 +19,73 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox');
   const lightboxClose = document.getElementById('lightboxClose');
 
+  // ---------- Background Music (YouTube) ----------
+  const musicToggle = document.getElementById('musicToggle');
+  const musicOnIcon = musicToggle.querySelector('.music-on');
+  const musicOffIcon = musicToggle.querySelector('.music-off');
+  let ytPlayer = null;
+  let musicPlaying = false;
+
+  // YouTube IFrame API callback — creates player but doesn't auto-play
+  window.onYouTubeIframeAPIReady = () => {
+    ytPlayer = new YT.Player('ytPlayer', {
+      videoId: '1_fy-sSl6qk',
+      playerVars: {
+        autoplay: 0,
+        start: 6,
+        loop: 1,
+        playlist: '1_fy-sSl6qk',
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        modestbranding: 1,
+        rel: 0
+      },
+      events: {
+        onReady: () => {
+          ytPlayer.setVolume(40);
+        }
+      }
+    });
+  };
+
+  function playMusic() {
+    if (ytPlayer && ytPlayer.playVideo) {
+      ytPlayer.playVideo();
+      musicPlaying = true;
+      musicOnIcon.style.display = '';
+      musicOffIcon.style.display = 'none';
+      musicToggle.classList.add('playing');
+    }
+  }
+
+  function pauseMusic() {
+    if (ytPlayer && ytPlayer.pauseVideo) {
+      ytPlayer.pauseVideo();
+      musicPlaying = false;
+      musicOnIcon.style.display = 'none';
+      musicOffIcon.style.display = '';
+      musicToggle.classList.remove('playing');
+    }
+  }
+
+  musicToggle.addEventListener('click', () => {
+    if (musicPlaying) {
+      pauseMusic();
+    } else {
+      playMusic();
+    }
+  });
+
   // ---------- Envelope Opening ----------
   openInviteBtn.addEventListener('click', () => {
     envelopeOverlay.classList.add('opening');
+
+    // Start music when envelope opens
+    setTimeout(() => {
+      musicToggle.style.display = '';
+      playMusic();
+    }, 600);
 
     setTimeout(() => {
       envelopeOverlay.classList.add('opened');
