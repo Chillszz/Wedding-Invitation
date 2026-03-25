@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       videoId: '1_fy-sSl6qk',
       playerVars: {
         autoplay: 0,
-        start: 6,
+        start: 7,
         loop: 1,
         playlist: '1_fy-sSl6qk',
         controls: 0,
